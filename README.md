@@ -32,11 +32,11 @@ The raw data was provided as multiple Excel sheets:
 
 ## Steps Taken
 
-### #1. Data Import
+### 1. Data Import
 
-* Loaded every sheet into Power Query using Load To ? Only Create Connection.
+* Loaded every sheet into Power Query using Load To ?  Only Create Connection.
 
-### #2. Data Cleaning & Transformation
+### 2. Data Cleaning & Transformation
 
 * Merged Sales2023 and Sales2024 into a single query named Sales.
 * Branch: removed an empty column (Column5).
@@ -49,24 +49,24 @@ The raw data was provided as multiple Excel sheets:
 * Added a conditional column in Sales named Invoice Category: High if TotalAmount > 1000, otherwise Low.
 * Closed & Loaded all queries into the Data Model.
 
-### #3. Data Modeling (Star Schema)
+### 3. Data Modeling (Star Schema)
 
 Built a Star Schema with Sales as the central fact table:
 
-* Branch ? Sales (BranchID)
+* Branch ?  Sales (BranchID)
 * PaymentMethod ? Sales (PaymentMethod)
 * Customer ? Sales (CustomerID)
-* Product ? Sales (ProductID)
-* Brands ? Product (BrandName ? Brand)
+* Product ?  Sales (ProductID)
+* Brands ?  Product (BrandName ?  Brand)
 
-Also created a Calendar table from the Diagram View (Design ? Date Table ? New) to cover all dates continuously, since the Date column in Sales had missing days, and linked it to the Date column in Sales.
+Also created a Calendar table from the Diagram View (Design ?  Date Table ?  New) to cover all dates continuously, since the Date column in Sales had missing days, and linked it to the Date column in Sales.
 
-### #4. DAX Measures
+### 4. DAX Measures
 
 * Total Sales = SUM(Sales[TotalAmount])
 * Active Customers = DISTINCTCOUNT(Sales[CustomerID])
 
-### #5. PivotTables
+### 5. PivotTables
 
 Several PivotTables were built from the Sales fact table to summarize Total Sales across different dimensions:
 
@@ -82,7 +82,7 @@ In addition to these breakdowns, two overall summary metrics were calculated:
 * Total Sales (Grand Total across all transactions)
 * Active Customers (distinct count of customers who made at least one purchase)
 
-### #6. Dashboard
+### 6. Dashboard
 
 Built an interactive dashboard combining PivotCharts:
 
@@ -99,11 +99,17 @@ Built an interactive dashboard combining PivotCharts:
 ## Key Insights
 
 * Total Sales: 974,693 | Active Customers: 638
+
 * Top Branch: Branch 3 (205,153) — Lowest: Branch 5 (182,583); performance across branches is fairly balanced.
+
 * Top Category: Fashion (221,302), followed by Electronics (200,355); Sports was the lowest (180,259).
+
 * Top Brand: Brand D (219,828); Lowest: Brand A (164,292).
+
 * Top Payment Method: PayPal (268,474), followed by Credit Card (248,973); Bank Transfer was the least used (224,208).
+
 * Peak Sales Month: August (94,159); sales dipped notably in February (83,658) and were lowest in November (74,303), suggesting a seasonal pattern worth further investigation.
+
 * The Category × Brand matrix shows Brand D leads in Fashion and Home, while Brand C leads in Electronics — useful for brand-category strategy decisions.
 
 ---
@@ -111,7 +117,7 @@ Built an interactive dashboard combining PivotCharts:
 ## How to Use
 
 1. Download/clone the repository.
-2. Open the Excel file and go to Data ? Queries & Connections to review the Power Query transformation steps.
+2. Open the Excel file and go to Data ?  Queries & Connections to review the Power Query transformation steps.
 3. Open the Data Model (Power Pivot) tab to explore the Star Schema relationships and DAX measures.
 4. Go to the Dashboard sheet and use the BrandName and Month slicers to filter the visuals interactively.
 5. PivotTables can be found on their dedicated sheets for a detailed breakdown of each dimension.
